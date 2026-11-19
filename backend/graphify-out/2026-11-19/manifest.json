@@ -370,5 +370,53 @@
     "seen": 1795089846.9736013,
     "ast_hash": "0302f25d85cdde564c83920892d6e9e1",
     "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1795092502.6879544,
+    "seen": 1795092505.4943724,
+    "ast_hash": "8fdded496f31e0a8d5731b4d75bc261a",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1795092431.3371003,
+    "seen": 1795092437.4814966,
+    "ast_hash": "c044f1d670a616ba8c14812e4d880ead",
+    "semantic_hash": ""
+  },
+  "docs/api/README.md": {
+    "mtime": 1795091456.267732,
+    "seen": 1795092437.4814966,
+    "ast_hash": "e477a4920460282a1a4a535ccf89270a",
+    "semantic_hash": ""
+  },
+  "docs/api/games.md": {
+    "mtime": 1795091424.7351813,
+    "seen": 1795092437.4814966,
+    "ast_hash": "8eb5d5408916ad1486a243e25261e6f2",
+    "semantic_hash": ""
+  },
+  "docs/api/items.md": {
+    "mtime": 1795091456.1476355,
+    "seen": 1795092437.4814966,
+    "ast_hash": "9d0c7b8a12f962ff2f86a72d68e8683d",
+    "semantic_hash": ""
+  },
+  "docs/api/moves.md": {
+    "mtime": 1795091424.7942207,
+    "seen": 1795092437.4814966,
+    "ast_hash": "6c38d29ad6a25258dceee9b2cf3ccf4e",
+    "semantic_hash": ""
+  },
+  "docs/api/pokemon.md": {
+    "mtime": 1795091390.6129088,
+    "seen": 1795092437.4814966,
+    "ast_hash": "682ade1f3002518ad9acbe71d9eb289d",
+    "semantic_hash": ""
+  },
+  "docs/api/types.md": {
+    "mtime": 1795091456.2039802,
+    "seen": 1795092437.4814966,
+    "ast_hash": "4589616d1834545e62ae8125d46a81cd",
+    "semantic_hash": ""
   }
 }

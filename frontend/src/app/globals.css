@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* Design tokens — "bright adventure". Type colours live in src/lib/type-colors.ts. */
+@theme {
+  --color-sky: #4aa8ff;
+  --color-sky-deep: #1f7ae0;
+  --color-sky-pale: #eaf5ff;
+  --color-adventure: #ef3e36;
+  --color-sun: #ffd23f;
+  --color-ink: #1b2a6b;
+  --color-muted: #52608f;
+  --color-line: #c9dcf2;
+  --color-card: #ffffff;
+
+  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --font-display: var(--font-lilita), var(--font-nunito), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-sky-pale);
+  color: var(--color-ink);
+}
+
+/* One visible focus style everywhere. */
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* White title with a thick blue outline and a solid drop, like a sticker. */
+.sticker-text {
+  color: #ffffff;
+  -webkit-text-stroke: 0.14em var(--color-ink);
+  paint-order: stroke fill;
+  text-shadow: 0 0.09em 0 var(--color-ink);
+}
+
+/* Soft clouds drifting across the sky band (static shapes, no animation). */
+.sky-band {
+  background:
+    radial-gradient(ellipse 220px 70px at 12% 78%, rgb(255 255 255 / 0.55) 60%, transparent 62%),
+    radial-gradient(ellipse 160px 52px at 18% 70%, rgb(255 255 255 / 0.55) 60%, transparent 62%),
+    radial-gradient(ellipse 260px 80px at 88% 22%, rgb(255 255 255 / 0.45) 60%, transparent 62%),
+    radial-gradient(ellipse 180px 56px at 80% 30%, rgb(255 255 255 / 0.45) 60%, transparent 62%),
+    linear-gradient(180deg, var(--color-sky-deep) 0%, var(--color-sky) 70%, #8cc8ff 100%);
+}
+
+/* The hero Pokémon floats gently: the page's only automatic motion. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Read-only REST API for Pokémon data (species, stats, games, moves/learnsets, items). Spring Boot 4.1 on Java 25, Maven, PostgreSQL 17, Flyway, Lombok. Everything for the backend lives in `backend/`: the Maven project, this file, `README.md` and `docs/api/` (one Markdown page per controller with real request/response examples — update the matching page when an endpoint changes). The repo root only holds git/IDE files, `.claude/` (hook + rules, which must stay at the root), a one-line `CLAUDE.md` that imports this file, and a project-level `README.md` covering both parts. A frontend is planned in `frontend/` (not started); it will call this API.
+Read-only REST API for Pokémon data (species, stats, games, moves/learnsets, items). Spring Boot 4.1 on Java 25, Maven, PostgreSQL 17, Flyway, Lombok. Everything for the backend lives in `backend/`: the Maven project, this file, `README.md` and `docs/api/` (one Markdown page per controller with real request/response examples — update the matching page when an endpoint changes). The repo root only holds git/IDE files, `.claude/` (hook + rules, which must stay at the root), a one-line `CLAUDE.md` that imports this file, and a project-level `README.md` covering both parts. The frontend is a separate Next.js app in `frontend/` (see the root `CLAUDE.md`); it will call this API.
 
 ## Commands
 
