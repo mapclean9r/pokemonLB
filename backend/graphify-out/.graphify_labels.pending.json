@@ -1,15 +1,21 @@
 {
-  "0": "FindById",
+  "0": "Pokémon API",
   "1": "org.springframework.web.bind.annotation.GetMapping",
   "4": "Move",
-  "5": "PokemonlbApplicationTests.java",
+  "5": "GameControllerTest",
   "6": "org.junit.jupiter.api.Test",
   "7": "org.springframework.data.jpa.repository.JpaRepository",
   "8": "FindEvolutions",
   "9": "PokemonControllerTest.java",
-  "12": "PokemonService.java",
+  "12": "ItemSummaryDto",
   "17": "org.junit.jupiter.api.Nested",
   "18": "PokemonControllerTest",
   "19": "com.pokemonlb.model.entity.Pokemon",
-  "20": "com.pokemonlb.model.entity.Type"
+  "20": "pokemonLB",
+  "21": "Games API",
+  "22": "README.md",
+  "23": "Moves API",
+  "24": "API",
+  "25": "Types API",
+  "26": "Items API"
 }

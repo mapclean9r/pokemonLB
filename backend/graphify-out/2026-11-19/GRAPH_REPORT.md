@@ -1,7 +1,7 @@
 # Graph Report - backend  (2026-11-19)
 
 ## Corpus Check
-- 78 files · ~3,299,276 words
+- 78 files · ~3,299,280 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 2 file(s) not represented in the graph (top: .properties 1, .cmd 1)
 
@@ -38,28 +38,28 @@
 - com.pokemonlb.model.entity.Type
 
 ## God Nodes (most connected - your core abstractions)
-1. `GameDto` - 20 edges
-2. `PokemonService` - 20 edges
-3. `GameService` - 16 edges
-4. `MoveGameAvailability` - 16 edges
-5. `PokemonMove` - 16 edges
+1. `PokemonService` - 20 edges
+2. `GameDto` - 20 edges
+3. `MoveGameAvailability` - 16 edges
+4. `PokemonMove` - 16 edges
+5. `NotFoundException` - 16 edges
 6. `ItemSummaryDto` - 16 edges
-7. `NotFoundException` - 16 edges
+7. `GameService` - 16 edges
 8. `PokemonServiceEvolutionTest` - 15 edges
 9. `Move` - 15 edges
-10. `MoveService` - 13 edges
+10. `PokemonControllerTest` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `PokemonServiceEvolutionTest` --references--> `PokemonService`  [EXTRACTED]
   src/test/java/com/pokemonlb/service/PokemonServiceEvolutionTest.java → src/main/java/com/pokemonlb/service/PokemonService.java
-- `GameService` --references--> `PokemonRepository`  [EXTRACTED]
-  src/main/java/com/pokemonlb/service/GameService.java → src/main/java/com/pokemonlb/repository/PokemonRepository.java
 - `GameController` --references--> `GameService`  [EXTRACTED]
   src/main/java/com/pokemonlb/controller/GameController.java → src/main/java/com/pokemonlb/service/GameService.java
 - `GameControllerTest` --references--> `GameController`  [EXTRACTED]
   src/test/java/com/pokemonlb/controller/GameControllerTest.java → src/main/java/com/pokemonlb/controller/GameController.java
 - `ItemController` --references--> `ItemService`  [EXTRACTED]
   src/main/java/com/pokemonlb/controller/ItemController.java → src/main/java/com/pokemonlb/service/ItemService.java
+- `ItemControllerTest` --references--> `ItemController`  [EXTRACTED]
+  src/test/java/com/pokemonlb/controller/ItemControllerTest.java → src/main/java/com/pokemonlb/controller/ItemController.java
 
 ## Import Cycles
 - None detected.
