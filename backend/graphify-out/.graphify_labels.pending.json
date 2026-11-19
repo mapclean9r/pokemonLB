@@ -1,0 +1,15 @@
+{
+  "0": "FindById",
+  "1": "org.springframework.web.bind.annotation.GetMapping",
+  "4": "Move",
+  "5": "PokemonlbApplicationTests.java",
+  "6": "org.junit.jupiter.api.Test",
+  "7": "org.springframework.data.jpa.repository.JpaRepository",
+  "8": "FindEvolutions",
+  "9": "PokemonControllerTest.java",
+  "12": "PokemonService.java",
+  "17": "org.junit.jupiter.api.Nested",
+  "18": "PokemonControllerTest",
+  "19": "com.pokemonlb.model.entity.Pokemon",
+  "20": "com.pokemonlb.model.entity.Type"
+}

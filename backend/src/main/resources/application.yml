@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: pokemonlb
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/pokemonlb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:1234}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        # Load lazy collections (e.g. Pokémon types) for up to 100 parents per query instead of one by one.
+        default_batch_fetch_size: 100
