@@ -19,6 +19,7 @@ public final class ApiUrls {
         public static final String MOVES = "/{id}/moves";          // GET /api/v1/pokemon/{id}/moves?gameId=
         public static final String MOVE_LEVELS = "/{id}/moves/{moveId}/levels"; // GET /api/v1/pokemon/{id}/moves/{moveId}/levels
         public static final String EVOLUTIONS = "/{id}/evolutions"; // GET /api/v1/pokemon/{id}/evolutions
+        public static final String ABILITIES = "/{id}/abilities";  // GET /api/v1/pokemon/{id}/abilities
 
         private Pokemon() {}
     }
@@ -66,6 +67,17 @@ public final class ApiUrls {
         public static final String POKEMON = "/{id}/pokemon";      // GET /api/v1/types/{id}/pokemon
 
         private Types() {}
+    }
+
+    // ---------------------------------------------------------------
+    // AbilityController
+    // ---------------------------------------------------------------
+    public static final class Abilities {
+        public static final String BASE = API + "/abilities";      // GET /api/v1/abilities?generation=
+        public static final String BY_ID = "/{id}";                // GET /api/v1/abilities/{id}
+        public static final String POKEMON = "/{id}/pokemon";      // GET /api/v1/abilities/{id}/pokemon
+
+        private Abilities() {}
     }
 
     private ApiUrls() {}

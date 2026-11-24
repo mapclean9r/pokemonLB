@@ -4,12 +4,13 @@ Handled by `PokemonController` · base URL `http://localhost:8080/api/v1/pokemon
 
 | Method | Endpoint | Returns |
 |---|---|---|
-| GET | [`/api/v1/pokemon`](#list-pokémon) | All Pokémon, optionally filtered by generation and/or game |
+| GET | [`/api/v1/pokemon`](#list-pokémon) | One page of Pokémon (20 by default), with search, type, generation and game filters |
 | GET | [`/api/v1/pokemon/{id}`](#get-one-pokémon) | One Pokémon with types and base stats |
 | GET | [`/api/v1/pokemon/{id}/games`](#games-a-pokémon-is-in) | Games whose Pokédex includes it |
 | GET | [`/api/v1/pokemon/{id}/moves?gameId=`](#learnset-in-a-game) | Its learnset in one game |
 | GET | [`/api/v1/pokemon/{id}/moves/{moveId}/levels`](#level-a-move-is-learned-at-per-generation) | The level it learns a move at, per generation |
 | GET | [`/api/v1/pokemon/{id}/evolutions`](#evolution-family) | Its whole evolution family |
+| GET | [`/api/v1/pokemon/{id}/abilities`](#abilities) | Its abilities, regular and hidden |
 
 `{id}` is the **National Pokédex number** (1–1025): Bulbasaur is `1`, Pikachu `25`, Charizard `6`. Game ids are listed in [games.md](games.md#game-ids), move ids in [moves.md](moves.md).
 
@@ -19,67 +20,87 @@ Handled by `PokemonController` · base URL `http://localhost:8080/api/v1/pokemon
 
 `GET /api/v1/pokemon`
 
-| Query parameter | Required | Example | Effect |
-|---|---|---|---|
-| `generation` | no | `9` | Only Pokémon introduced in that generation (1–9) |
-| `gameId` | no | `24` | Only Pokémon in that game's Pokédex |
+Returns **one page** of Pokémon in Pokédex order: 20 per page unless you ask for another size. To get the next page, ask for `page + 1` while `hasNext` is `true`.
 
-Both can be combined. Results are sorted by Pokédex number. Each Pokémon's `types` lists the primary type first.
+| Query parameter | Required | Default | Example | Effect |
+|---|---|---|---|---|
+| `page` | no | `0` | `1` | Which page, starting at 0 |
+| `size` | no | `20` | `50` | Pokémon per page, 1–100 |
+| `search` | no | – | `char` or `25` | A number finds that exact Pokédex number (`25` or `#25`); anything else finds names containing it, ignoring case and accents (`flabebe` finds Flabébé) |
+| `type` | no | – | `Fire` | Only Pokémon with that type, as primary **or** secondary type (not case-sensitive) |
+| `generation` | no | – | `9` | Only Pokémon introduced in that generation (1–9) |
+| `gameId` | no | – | `24` | Only Pokémon in that game's Pokédex |
 
-### All Pokémon
+All filters combine. Each Pokémon's `types` lists the primary type first.
+
+### Response
+
+| Field | Meaning |
+|---|---|
+| `items` | The Pokémon on this page |
+| `page` | This page's number (starts at 0) |
+| `size` | The page size used |
+| `totalItems` | How many Pokémon match in total, over all pages |
+| `totalPages` | How many pages there are at this size |
+| `hasNext` | `true` if there is a page after this one |
+
+### First page
 
 ```bash
 curl http://localhost:8080/api/v1/pokemon
 ```
 
-Returns all **1025** Pokémon. First 2 shown:
+20 of all **1025** Pokémon, on **52** pages. First 2 items shown:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Bulbasaur",
-    "generation": 1,
-    "types": ["Grass", "Poison"],
-    "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-  },
-  {
-    "id": 2,
-    "name": "Ivysaur",
-    "generation": 1,
-    "types": ["Grass", "Poison"],
-    "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"
-  }
-]
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Bulbasaur",
+      "generation": 1,
+      "types": ["Grass", "Poison"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+    },
+    {
+      "id": 2,
+      "name": "Ivysaur",
+      "generation": 1,
+      "types": ["Grass", "Poison"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"
+    }
+  ],
+  "page": 0,
+  "size": 20,
+  "totalItems": 1025,
+  "totalPages": 52,
+  "hasNext": true
+}
 ```
 
-### Only Generation 9
+### Last page
 
 ```bash
-curl "http://localhost:8080/api/v1/pokemon?generation=9"
+curl "http://localhost:8080/api/v1/pokemon?page=51"
 ```
 
-Returns **120** Pokémon, starting with Sprigatito:
+The last 5 Pokémon (Raging Bolt, Iron Boulder, Iron Crown, Terapagos, Pecharunt), with `"page": 51` and `"hasNext": false`. A page past the end returns `"items": []`.
 
-```json
-[
-  {
-    "id": 906,
-    "name": "Sprigatito",
-    "generation": 9,
-    "types": ["Grass"],
-    "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/906.png"
-  }
-]
-```
-
-### Only Pokémon in Legends: Arceus
+### Search by name
 
 ```bash
-curl "http://localhost:8080/api/v1/pokemon?gameId=24"
+curl "http://localhost:8080/api/v1/pokemon?search=char"
 ```
 
-Returns **242** Pokémon (the Hisui Pokédex), starting with Pikachu (`25`) and Raichu (`26`).
+**7** matches on one page: Charmander, Charmeleon, Charizard, Chimchar, Charjabug, Charcadet and Pecharunt (the name contains "char").
+
+### Fire types from Generation 1
+
+```bash
+curl "http://localhost:8080/api/v1/pokemon?type=Fire&generation=1"
+```
+
+**12** matches, starting with Charmander, Charmeleon, Charizard and Vulpix.
 
 ### Generation 4 Pokémon in Legends: Arceus
 
@@ -87,7 +108,7 @@ Returns **242** Pokémon (the Hisui Pokédex), starting with Pikachu (`25`) and 
 curl "http://localhost:8080/api/v1/pokemon?generation=4&gameId=24"
 ```
 
-Returns **107** Pokémon, starting with Turtwig (`387`) and Grotle (`388`).
+**107** matches on 6 pages, starting with Turtwig (`387`) and Grotle (`388`).
 
 ---
 
@@ -430,16 +451,65 @@ Evolutions use each Pokémon's **current** method; older methods (like Feebas's 
 
 ---
 
+## Abilities
+
+`GET /api/v1/pokemon/{id}/abilities`
+
+The abilities the Pokémon can have, by slot: slots `1` and `2` are regular abilities, slot `3` is the hidden ability (`"hidden": true`). Most Pokémon have one or two regular abilities and a hidden one; some have only one ability in total.
+
+```bash
+curl http://localhost:8080/api/v1/pokemon/25/abilities
+```
+
+```json
+[
+  {
+    "ability": {
+      "id": 9,
+      "name": "Static",
+      "generation": 3,
+      "effect": "Has a 30% chance of paralyzing attacking Pokémon on contact."
+    },
+    "slot": 1,
+    "hidden": false
+  },
+  {
+    "ability": {
+      "id": 31,
+      "name": "Lightning Rod",
+      "generation": 3,
+      "effect": "Redirects single-target Electric moves to this Pokémon where possible. Absorbs Electric moves, raising Special Attack one stage."
+    },
+    "slot": 3,
+    "hidden": true
+  }
+]
+```
+
+More examples from the same endpoint:
+
+| Pokémon | Slot 1 | Slot 2 | Slot 3 (hidden) |
+|---|---|---|---|
+| Charizard (`6`) | Blaze | – | Solar Power |
+| Eevee (`133`) | Run Away | Adaptability | Anticipation |
+| Shedinja (`292`) | Wonder Guard | – | – |
+
+To go the other way, from an ability to every Pokémon that has it, see [abilities.md](abilities.md#pokémon-with-an-ability).
+
+---
+
 ## Errors
 
 | Request | Status | Why |
 |---|---|---|
-| `GET /api/v1/pokemon/9999` | 404 | No Pokémon with that number |
+| `GET /api/v1/pokemon/9999` | 404 | No Pokémon with that number (same for `/games`, `/moves`, `/evolutions`, `/abilities` under it) |
 | `GET /api/v1/pokemon/25/moves?gameId=999` | 404 | No game with that id |
 | `GET /api/v1/pokemon/25/moves/9999/levels` | 404 | No move with that id |
 | `GET /api/v1/pokemon/abc` | 400 | Id is not a number |
 | `GET /api/v1/pokemon/25/moves` | 400 | `gameId` is missing |
 | `GET /api/v1/pokemon?generation=abc` | 400 | Generation is not a number |
+| `GET /api/v1/pokemon?page=-1` | 400 | Page is below 0 |
+| `GET /api/v1/pokemon?size=101` | 400 | Size is outside 1–100 |
 
 404 body:
 

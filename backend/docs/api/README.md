@@ -9,6 +9,7 @@ One page per controller, with real requests and the responses they return.
 | [Moves](moves.md) | `MoveController` | `/api/v1/moves` |
 | [Items](items.md) | `ItemController` | `/api/v1/items` |
 | [Types](types.md) | `TypeController` | `/api/v1/types` |
+| [Abilities](abilities.md) | `AbilityController` | `/api/v1/abilities` |
 
 ## Before you start
 
@@ -19,7 +20,7 @@ Every endpoint is a `GET` and returns JSON, so you can also open the URLs in a b
 ## Conventions
 
 - **Ids are numbers.** Pokémon ids are National Pokédex numbers (Pikachu is `25`). Game and type ids are listed in [games.md](games.md#game-ids) and [types.md](types.md#type-ids).
-- **Lists are never paged.** Every list endpoint returns all matching results at once (up to 2174 for all items).
+- **Only the Pokémon list is paged.** `GET /api/v1/pokemon` returns 20 at a time with `page`, `totalItems` and `hasNext` (see [pokemon.md](pokemon.md#list-pokémon)). Every other list endpoint returns all matching results at once (up to 2174 for all items).
 - **`null` means "doesn't apply".** For example, a status move has `"power": null`. Fields are never left out of a response.
 - **Example responses are real** but shortened: long lists show only their first few entries, and the page says how many there are in total.
 

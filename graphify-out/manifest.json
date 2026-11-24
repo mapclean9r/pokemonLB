@@ -18,10 +18,10 @@
     "semantic_hash": "0c02463e9db4bce6fc8009483f278e03"
   },
   "backend/src/main/java/com/pokemonlb/config/ApiUrls.java": {
-    "mtime": 1795089732.980885,
-    "seen": 1795534330.3480155,
-    "ast_hash": "3b75945acaa4c32a0317ccce91e511b9",
-    "semantic_hash": "3b75945acaa4c32a0317ccce91e511b9"
+    "mtime": 1795535226.6489713,
+    "seen": 1795535229.094472,
+    "ast_hash": "7fdda1f78b110aba86352df50ab8397a",
+    "semantic_hash": ""
   },
   "backend/src/main/java/com/pokemonlb/controller/GameController.java": {
     "mtime": 1795087821.4617958,
@@ -42,10 +42,10 @@
     "semantic_hash": "4eec9710d300bdba5324690d3eac7272"
   },
   "backend/src/main/java/com/pokemonlb/controller/PokemonController.java": {
-    "mtime": 1795089733.1674247,
-    "seen": 1795534330.3480155,
-    "ast_hash": "10f29680cd8b60d6f104769cc3d133c6",
-    "semantic_hash": "10f29680cd8b60d6f104769cc3d133c6"
+    "mtime": 1795536238.248762,
+    "seen": 1795536240.8678963,
+    "ast_hash": "99ed341b6411234d6d8f4fb59327c0ac",
+    "semantic_hash": ""
   },
   "backend/src/main/java/com/pokemonlb/controller/TypeController.java": {
     "mtime": 1795089067.9863708,
@@ -270,10 +270,10 @@
     "semantic_hash": "93374dc2cb3627f2afbfbbbb0ed1194a"
   },
   "backend/src/main/java/com/pokemonlb/repository/PokemonRepository.java": {
-    "mtime": 1795089053.4861228,
-    "seen": 1795534330.3480155,
-    "ast_hash": "5cefc84c670fd5695d8cf9203ad62c2e",
-    "semantic_hash": "5cefc84c670fd5695d8cf9203ad62c2e"
+    "mtime": 1795536216.9223099,
+    "seen": 1795536217.309717,
+    "ast_hash": "f1812415a77c8b703ecf175bbbc924f8",
+    "semantic_hash": ""
   },
   "backend/src/main/java/com/pokemonlb/repository/PokemonStatsRepository.java": {
     "mtime": 1795087058.0372808,
@@ -306,10 +306,10 @@
     "semantic_hash": "0e8ecc45140f04fa22228e3f5d17f0a4"
   },
   "backend/src/main/java/com/pokemonlb/service/PokemonService.java": {
-    "mtime": 1795089732.919366,
-    "seen": 1795534330.3480155,
-    "ast_hash": "6c381a223857b37f2afb07ca5cbf40c0",
-    "semantic_hash": "6c381a223857b37f2afb07ca5cbf40c0"
+    "mtime": 1795536227.5715785,
+    "seen": 1795536230.3948328,
+    "ast_hash": "37d7bd995a9efc12765a12444f50e038",
+    "semantic_hash": ""
   },
   "backend/src/main/java/com/pokemonlb/service/TypeService.java": {
     "mtime": 1795089067.9389524,
@@ -384,10 +384,10 @@
     "semantic_hash": "82939c5bd0c03b025e08b20fbbb14531"
   },
   "backend/src/test/java/com/pokemonlb/controller/PokemonControllerTest.java": {
-    "mtime": 1795089749.5565972,
-    "seen": 1795534330.3480155,
-    "ast_hash": "1bd48618d3d29e0dbba5707af3cda2ea",
-    "semantic_hash": "1bd48618d3d29e0dbba5707af3cda2ea"
+    "mtime": 1795536262.5737166,
+    "seen": 1795536265.358981,
+    "ast_hash": "db3a95d546804671b6f884965ab3d97e",
+    "semantic_hash": ""
   },
   "backend/src/test/java/com/pokemonlb/controller/TypeControllerTest.java": {
     "mtime": 1795089095.3882136,
@@ -396,10 +396,10 @@
     "semantic_hash": "b344bc1f6e1fb79bc04d1f575bf9ef90"
   },
   "backend/src/test/java/com/pokemonlb/service/PokemonServiceEvolutionTest.java": {
-    "mtime": 1795089843.8188326,
-    "seen": 1795534330.3480155,
-    "ast_hash": "0302f25d85cdde564c83920892d6e9e1",
-    "semantic_hash": "0302f25d85cdde564c83920892d6e9e1"
+    "mtime": 1795535259.9288669,
+    "seen": 1795535262.6569118,
+    "ast_hash": "1f3cae928d842011f71e3fc7f56d0b56",
+    "semantic_hash": ""
   },
   "frontend/eslint.config.mjs": {
     "mtime": 1794597159.8204582,
@@ -426,10 +426,10 @@
     "semantic_hash": "eb38fba03c8233e7f63f5fafcad30128"
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1795095692.6083436,
-    "seen": 1795534330.3480155,
-    "ast_hash": "f8f79aa8c73a781a77f627230e79a598",
-    "semantic_hash": "f8f79aa8c73a781a77f627230e79a598"
+    "mtime": 1795536419.0988257,
+    "seen": 1795536422.0528543,
+    "ast_hash": "426efc0af018a4df5223bc93a0a48589",
+    "semantic_hash": ""
   },
   "frontend/src/components/catalog-skeleton.tsx": {
     "mtime": 1795095683.6382518,
@@ -444,10 +444,10 @@
     "semantic_hash": "490081f04cafc63c178e872105a1e449"
   },
   "frontend/src/components/pokemon-browser.tsx": {
-    "mtime": 1795095683.2332401,
-    "seen": 1795534330.3480155,
-    "ast_hash": "376a73a439154dfda0e2fb0875482816",
-    "semantic_hash": "376a73a439154dfda0e2fb0875482816"
+    "mtime": 1795536413.0562441,
+    "seen": 1795536415.748555,
+    "ast_hash": "c263d05ef2d421fcd4a385d7d74b48bd",
+    "semantic_hash": ""
   },
   "frontend/src/components/pokemon-card.tsx": {
     "mtime": 1795095650.5176902,
@@ -462,10 +462,10 @@
     "semantic_hash": "f2f585e1f9ee1924a5994a8f8aebe581"
   },
   "frontend/src/hooks/use-pokemon-filters.ts": {
-    "mtime": 1795095278.3495972,
-    "seen": 1795534330.3480155,
-    "ast_hash": "75f0ef7feac7c87ee65ab7a52af6bb1a",
-    "semantic_hash": "75f0ef7feac7c87ee65ab7a52af6bb1a"
+    "mtime": 1795536382.9178321,
+    "seen": 1795536385.9217489,
+    "ast_hash": "33f40c7ca1575843b467f3c5163d0147",
+    "semantic_hash": ""
   },
   "frontend/src/lib/format.ts": {
     "mtime": 1795095255.7375846,
@@ -486,10 +486,10 @@
     "semantic_hash": "a1d1607ee7512e35b77561f394893222"
   },
   "frontend/src/services/pokemon-service.ts": {
-    "mtime": 1795095255.565037,
-    "seen": 1795534330.3480155,
-    "ast_hash": "604c8f8411792b5655b35fe2b1e8dcf7",
-    "semantic_hash": "604c8f8411792b5655b35fe2b1e8dcf7"
+    "mtime": 1795536354.824955,
+    "seen": 1795536358.1034138,
+    "ast_hash": "f55262dbf9fef030cd361cadcd959b1d",
+    "semantic_hash": ""
   },
   "frontend/src/services/type-service.ts": {
     "mtime": 1795095255.6287475,
@@ -498,16 +498,124 @@
     "semantic_hash": "9182dffa99abe0da51a838111f32e8e0"
   },
   "frontend/src/types/pokemon.ts": {
-    "mtime": 1795095255.4595385,
-    "seen": 1795534330.3480155,
-    "ast_hash": "ef77e15af239a88a2a66f9f97af01227",
-    "semantic_hash": "ef77e15af239a88a2a66f9f97af01227"
+    "mtime": 1795536354.7174017,
+    "seen": 1795536358.1034138,
+    "ast_hash": "2d2945b3702d15fb0380fcdad7096f31",
+    "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
     "mtime": 1795094449.3928585,
     "seen": 1795534330.3480155,
     "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
     "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
+  },
+  "backend/src/main/java/com/pokemonlb/controller/AbilityController.java": {
+    "mtime": 1795535226.4858952,
+    "seen": 1795535229.094472,
+    "ast_hash": "da7614deeebc1ab429fe9165460ee765",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/model/dto/AbilityDto.java": {
+    "mtime": 1795535226.16417,
+    "seen": 1795535229.0959766,
+    "ast_hash": "4857c142a90d2cdb0b6a419a2ee4a35a",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/model/dto/AbilityPokemonDto.java": {
+    "mtime": 1795535226.2988696,
+    "seen": 1795535229.0959766,
+    "ast_hash": "87d8398f56fe27a418d0dab32eb63a0c",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/model/dto/PokemonAbilityDto.java": {
+    "mtime": 1795535226.2301865,
+    "seen": 1795535229.0974872,
+    "ast_hash": "2b3296273390ef5cdc78b00b05315c6e",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/model/entity/Ability.java": {
+    "mtime": 1795535225.9177961,
+    "seen": 1795535229.0979905,
+    "ast_hash": "50d81713b750cd16d74672aec55b620d",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/model/entity/PokemonAbility.java": {
+    "mtime": 1795535225.9797914,
+    "seen": 1795535229.0989952,
+    "ast_hash": "ce7e1d742cfd86536416107bb097e87f",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/repository/AbilityRepository.java": {
+    "mtime": 1795535226.0348372,
+    "seen": 1795535229.0989952,
+    "ast_hash": "21e5d75f163ed953856a425e609e569b",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/repository/PokemonAbilityRepository.java": {
+    "mtime": 1795535226.0923114,
+    "seen": 1795535229.099995,
+    "ast_hash": "d2aa1b6a05892b5cdcc1c2b37549596f",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/service/AbilityService.java": {
+    "mtime": 1795535226.3968992,
+    "seen": 1795535229.099995,
+    "ast_hash": "43ca51f6856fbd25dd3ec9f36f58e399",
+    "semantic_hash": ""
+  },
+  "backend/src/test/java/com/pokemonlb/controller/AbilityControllerTest.java": {
+    "mtime": 1795535259.9823844,
+    "seen": 1795535262.6559122,
+    "ast_hash": "be90bd587f700003ade2da4571a24246",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/model/dto/PageDto.java": {
+    "mtime": 1795536210.828457,
+    "seen": 1795536214.5408854,
+    "ast_hash": "e64a6b9a00b687f3f65ff8d18fb62ad8",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/repository/PokemonSpecifications.java": {
+    "mtime": 1795536210.8959856,
+    "seen": 1795536214.5438836,
+    "ast_hash": "f955ae3cbed6c5ceb089cb3da31baac9",
+    "semantic_hash": ""
+  },
+  "backend/src/test/java/com/pokemonlb/repository/PokemonSpecificationsTest.java": {
+    "mtime": 1795536262.6244593,
+    "seen": 1795536265.3604927,
+    "ast_hash": "1b09c01cb1b4852e6e7f26c487ead6a6",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/pokemon-query.ts": {
+    "mtime": 1795536354.7744384,
+    "seen": 1795536358.1034138,
+    "ast_hash": "2a15e26bbc9ef2a95bc2d6765251f8d0",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/api/pokemon/route.ts": {
+    "mtime": 1795536382.7994547,
+    "seen": 1795536385.9207485,
+    "ast_hash": "f0ebefa907e6c3eb0268725d5bce46dd",
+    "semantic_hash": ""
+  },
+  "frontend/src/hooks/use-debounced-value.ts": {
+    "mtime": 1795536382.8686857,
+    "seen": 1795536385.9217489,
+    "ast_hash": "aa89ea5ff1a31dfd950cf9e293597103",
+    "semantic_hash": ""
+  },
+  "frontend/src/hooks/use-infinite-scroll.ts": {
+    "mtime": 1795536391.497899,
+    "seen": 1795536394.627741,
+    "ast_hash": "5412b28d1f640e1799913b13963525a5",
+    "semantic_hash": ""
+  },
+  "frontend/src/hooks/use-pokemon-pages.ts": {
+    "mtime": 1795536382.9748328,
+    "seen": 1795536385.9217489,
+    "ast_hash": "023caa0ce4ee45a3f3eae7281eadf216",
+    "semantic_hash": ""
   },
   "frontend/package-lock.json": {
     "mtime": 1795094515.5634887,

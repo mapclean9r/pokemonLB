@@ -6,6 +6,8 @@
 graphify-out/
 .claude/
 .idea/
+.run/
+/pom.xml
 
 # Generated or bulky
 backend/target/

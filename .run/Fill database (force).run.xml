@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Fill database (force)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.pokemonlb.datainject.DbDataInject" />
+    <module name="pokemonlb" />
+    <option name="PROGRAM_PARAMETERS" value="--force" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

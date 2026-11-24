@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { CatalogSkeleton } from "@/components/catalog-skeleton";
 import { PokemonBrowser } from "@/components/pokemon-browser";
 import { API_URL } from "@/services/api-client";
-import { getAllPokemon } from "@/services/pokemon-service";
+import { getPokemonPage } from "@/services/pokemon-service";
 import { getTypes } from "@/services/type-service";
 
 export default function HomePage() {
@@ -29,14 +29,14 @@ async function Catalog() {
   await connection();
   const data = await loadCatalog();
   if (!data) return <ApiUnavailable />;
-  return <PokemonBrowser pokemon={data.pokemon} types={data.types} />;
+  return <PokemonBrowser initialPage={data.firstPage} types={data.types} />;
 }
 
-/** Both lists, or null when the API can't be reached. */
+/** The first page of Pokémon (the rest load as you scroll) and the types, or null when the API can't be reached. */
 async function loadCatalog() {
   try {
-    const [pokemon, types] = await Promise.all([getAllPokemon(), getTypes()]);
-    return { pokemon, types };
+    const [firstPage, types] = await Promise.all([getPokemonPage(), getTypes()]);
+    return { firstPage, types };
   } catch (error) {
     console.error("Could not load Pokémon from the API:", error);
     return null;

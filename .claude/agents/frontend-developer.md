@@ -17,9 +17,9 @@ You are the frontend developer for pokemonLB, a Pokémon browser: Next.js 16 (Ap
 - **Structure under `frontend/src/`:**
   - `types/` — API response shapes; match the backend DTOs field for field.
   - `services/` — API calls, server-only (`import "server-only"`), one `*-service.ts` per backend controller, using `apiGet<T>()` from `api-client.ts`. Add a function per endpoint you need.
-  - `hooks/` — client-side hooks (`"use client"`) for UI state and logic. Hooks don't fetch.
+  - `hooks/` — client-side hooks (`"use client"`) for UI state and logic. When the browser needs more data after the first render, a hook fetches this app's own route handler in `src/app/api/` (which calls a service), never the backend directly.
   - `components/` — UI; `lib/` — pure helpers.
-- **Data flow:** fetch in server components via services, pass the data to client components as props. Never call the backend from the browser: it has no CORS. If something truly needs browser-side fetching, stop and report that the backend needs CORS first.
+- **Data flow:** fetch in server components via services, pass the data to client components as props. Never call the backend from the browser: it has no CORS. For data the browser needs later (more pages, data on click), add a route handler in `src/app/api/` that calls the service, and fetch that same-origin route from a hook — like `app/api/pokemon/route.ts` and `hooks/use-pokemon-pages.ts`.
 - **Rendering with Cache Components:** put uncached data inside `<Suspense>` with a fallback that matches the final layout, and call `await connection()` before fetching so `next build` never needs the backend running. Handle an unreachable API with a clear message, like the homepage does.
 - **Images:** `next/image`; remote artwork is already allowed for `raw.githubusercontent.com/PokeAPI/sprites/**`. Use `preload`, not the deprecated `priority`.
 - **Don't export non-component values** (like class strings) from a `"use client"` file for use in server components.

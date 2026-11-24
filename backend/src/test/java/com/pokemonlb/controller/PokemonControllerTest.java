@@ -12,11 +12,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.pokemonlb.exception.NotFoundException;
+import com.pokemonlb.model.dto.AbilityDto;
+import com.pokemonlb.model.dto.PokemonAbilityDto;
 import com.pokemonlb.model.dto.EvolutionDto;
 import com.pokemonlb.model.dto.GameDto;
 import com.pokemonlb.model.dto.LearnsetEntryDto;
 import com.pokemonlb.model.dto.MoveDto;
 import com.pokemonlb.model.dto.MoveLevelByGenerationDto;
+import com.pokemonlb.model.dto.PageDto;
 import com.pokemonlb.model.dto.PokemonDetailDto;
 import com.pokemonlb.model.dto.PokemonRefDto;
 import com.pokemonlb.model.dto.PokemonStatsDto;
@@ -46,45 +49,81 @@ class PokemonControllerTest {
     private PokemonService pokemonService;
 
     @Nested
-    class FindAll {
+    class FindPage {
 
         @Test
-        void returnsAllPokemonWithoutFilters() throws Exception {
-            given(pokemonService.findAll(null, null)).willReturn(List.of(PIKACHU));
+        void returnsFirstPageOfTwentyByDefault() throws Exception {
+            given(pokemonService.findPage(null, null, null, null, 0, 20))
+                    .willReturn(new PageDto<>(List.of(PIKACHU), 0, 20, 1025, 52, true));
 
             mockMvc.perform(get("/api/v1/pokemon"))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(1)))
-                    .andExpect(jsonPath("$[0].id").value(25))
-                    .andExpect(jsonPath("$[0].name").value("Pikachu"))
-                    .andExpect(jsonPath("$[0].generation").value(1))
-                    .andExpect(jsonPath("$[0].types", contains("Electric")))
-                    .andExpect(jsonPath("$[0].imageUrl").value(IMAGE));
+                    .andExpect(jsonPath("$.items", hasSize(1)))
+                    .andExpect(jsonPath("$.items[0].id").value(25))
+                    .andExpect(jsonPath("$.items[0].name").value("Pikachu"))
+                    .andExpect(jsonPath("$.items[0].types", contains("Electric")))
+                    .andExpect(jsonPath("$.items[0].imageUrl").value(IMAGE))
+                    .andExpect(jsonPath("$.page").value(0))
+                    .andExpect(jsonPath("$.size").value(20))
+                    .andExpect(jsonPath("$.totalItems").value(1025))
+                    .andExpect(jsonPath("$.totalPages").value(52))
+                    .andExpect(jsonPath("$.hasNext").value(true));
         }
 
         @Test
-        void passesGenerationAndGameFilters() throws Exception {
-            given(pokemonService.findAll((short) 1, 25)).willReturn(List.of(PIKACHU));
+        void passesPagingAndAllFilters() throws Exception {
+            given(pokemonService.findPage("pika", "Electric", (short) 1, 25, 2, 10))
+                    .willReturn(new PageDto<>(List.of(PIKACHU), 2, 10, 21, 3, false));
 
-            mockMvc.perform(get("/api/v1/pokemon").param("generation", "1").param("gameId", "25"))
+            mockMvc.perform(get("/api/v1/pokemon")
+                            .param("page", "2").param("size", "10")
+                            .param("search", "pika").param("type", "Electric")
+                            .param("generation", "1").param("gameId", "25"))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].name").value("Pikachu"));
+                    .andExpect(jsonPath("$.items[0].name").value("Pikachu"))
+                    .andExpect(jsonPath("$.hasNext").value(false));
 
-            verify(pokemonService).findAll((short) 1, 25);
+            verify(pokemonService).findPage("pika", "Electric", (short) 1, 25, 2, 10);
         }
 
         @Test
-        void returnsEmptyListWhenNothingMatches() throws Exception {
-            given(pokemonService.findAll((short) 9, null)).willReturn(List.of());
+        void returnsEmptyPageWhenNothingMatches() throws Exception {
+            given(pokemonService.findPage("zzz", null, null, null, 0, 20))
+                    .willReturn(new PageDto<>(List.of(), 0, 20, 0, 0, false));
 
-            mockMvc.perform(get("/api/v1/pokemon").param("generation", "9"))
+            mockMvc.perform(get("/api/v1/pokemon").param("search", "zzz"))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(0)));
+                    .andExpect(jsonPath("$.items", hasSize(0)))
+                    .andExpect(jsonPath("$.totalItems").value(0));
         }
 
         @Test
         void rejectsNonNumericGeneration() throws Exception {
             mockMvc.perform(get("/api/v1/pokemon").param("generation", "abc"))
+                    .andExpect(status().isBadRequest());
+
+            verifyNoInteractions(pokemonService);
+        }
+
+        @Test
+        void rejectsNegativePage() throws Exception {
+            mockMvc.perform(get("/api/v1/pokemon").param("page", "-1"))
+                    .andExpect(status().isBadRequest());
+
+            verifyNoInteractions(pokemonService);
+        }
+
+        @Test
+        void rejectsPageSizeAboveMaximum() throws Exception {
+            mockMvc.perform(get("/api/v1/pokemon").param("size", "101"))
+                    .andExpect(status().isBadRequest());
+
+            verifyNoInteractions(pokemonService);
+        }
+
+        @Test
+        void rejectsZeroPageSize() throws Exception {
+            mockMvc.perform(get("/api/v1/pokemon").param("size", "0"))
                     .andExpect(status().isBadRequest());
 
             verifyNoInteractions(pokemonService);
@@ -229,6 +268,35 @@ class PokemonControllerTest {
             mockMvc.perform(get("/api/v1/pokemon/25/moves/9999/levels"))
                     .andExpect(status().isNotFound())
                     .andExpect(jsonPath("$.detail").value("Move 9999 not found"));
+        }
+    }
+
+    @Nested
+    class FindAbilities {
+
+        @Test
+        void returnsAbilitiesWithHiddenLast() throws Exception {
+            given(pokemonService.findAbilities(25)).willReturn(List.of(
+                    new PokemonAbilityDto(new AbilityDto(9, "Static", (short) 3, "Paralyzes on contact."), (short) 1, false),
+                    new PokemonAbilityDto(new AbilityDto(31, "Lightning Rod", (short) 3, "Draws in Electric moves."), (short) 3, true)));
+
+            mockMvc.perform(get("/api/v1/pokemon/25/abilities"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$", hasSize(2)))
+                    .andExpect(jsonPath("$[0].ability.name").value("Static"))
+                    .andExpect(jsonPath("$[0].slot").value(1))
+                    .andExpect(jsonPath("$[0].hidden").value(false))
+                    .andExpect(jsonPath("$[1].ability.id").value(31))
+                    .andExpect(jsonPath("$[1].slot").value(3))
+                    .andExpect(jsonPath("$[1].hidden").value(true));
+        }
+
+        @Test
+        void returns404WhenPokemonDoesNotExist() throws Exception {
+            given(pokemonService.findAbilities(9999)).willThrow(new NotFoundException("Pokémon", 9999));
+
+            mockMvc.perform(get("/api/v1/pokemon/9999/abilities"))
+                    .andExpect(status().isNotFound());
         }
     }
 

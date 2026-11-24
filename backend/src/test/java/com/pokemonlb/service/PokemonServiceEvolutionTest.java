@@ -11,6 +11,7 @@ import com.pokemonlb.model.entity.Pokemon;
 import com.pokemonlb.model.entity.PokemonEvolution;
 import com.pokemonlb.repository.GameRepository;
 import com.pokemonlb.repository.MoveRepository;
+import com.pokemonlb.repository.PokemonAbilityRepository;
 import com.pokemonlb.repository.PokemonEvolutionRepository;
 import com.pokemonlb.repository.PokemonMoveRepository;
 import com.pokemonlb.repository.PokemonRepository;
@@ -36,7 +37,8 @@ class PokemonServiceEvolutionTest {
     @BeforeEach
     void setUp() {
         service = new PokemonService(pokemonRepository, mock(PokemonStatsRepository.class), mock(GameRepository.class),
-                mock(MoveRepository.class), mock(PokemonMoveRepository.class), evolutionRepository);
+                mock(MoveRepository.class), mock(PokemonMoveRepository.class), evolutionRepository,
+                mock(PokemonAbilityRepository.class));
 
         for (Pokemon p : List.of(charmander, charmeleon, charizard)) {
             given(pokemonRepository.findById(p.getId())).willReturn(Optional.of(p));

@@ -45,7 +45,7 @@ Quick check once it's running: <http://localhost:8080/api/v1/pokemon/25> returns
 
 A Next.js 16 app with TypeScript, the App Router, Tailwind CSS and ESLint. Code lives in `frontend/src/`; `@/` imports point there (`@/app/page` = `src/app/page.tsx`).
 
-The homepage lists all 1025 Pokémon with artwork, number and types. You can search by name or Pokédex number and filter by type and generation. The data comes from the backend, so start the backend first; if it isn't running, the page says so instead of the list. If the API isn't at `http://localhost:8080/api/v1`, copy `frontend/.env.example` to `frontend/.env.local` and set `POKEMON_API_URL`.
+The homepage lists the Pokémon with artwork, number and types, 20 at a time: the next 20 load as you scroll down. You can search by name or Pokédex number and filter by type and generation; the backend does the searching. The data comes from the backend, so start the backend first; if it isn't running, the page says so instead of the list. If the API isn't at `http://localhost:8080/api/v1`, copy `frontend/.env.example` to `frontend/.env.local` and set `POKEMON_API_URL`.
 
 Requires Node.js 20.9 or newer. From the `frontend/` folder:
 

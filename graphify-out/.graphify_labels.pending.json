@@ -1,0 +1,23 @@
+{
+  "0": "org.junit.jupiter.api.Nested",
+  "1": "PokemonService.java",
+  "2": "MoveService",
+  "6": "PokemonController.java",
+  "9": "org.springframework.web.bind.annotation.GetMapping",
+  "12": "PokemonControllerTest.java",
+  "13": "MoveGameAvailability",
+  "17": "AbilityControllerTest",
+  "18": "org.springframework.data.jpa.repository.JpaRepository",
+  "19": "lombok.RequiredArgsConstructor",
+  "20": "org.junit.jupiter.api.Test",
+  "21": "PokemonControllerTest",
+  "22": "layout.tsx",
+  "23": "PokemonSpecifications.java",
+  "24": "TypeDto",
+  "25": "MoveControllerTest",
+  "26": "GameDto",
+  "27": "ItemSummaryDto",
+  "28": "FindEvolutions",
+  "29": "ItemDetailDto",
+  "30": "PokemonlbApplicationTests.java"
+}

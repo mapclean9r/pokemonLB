@@ -1,39 +1,31 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
-import { normalizeText } from "@/lib/format";
-import type { PokemonSummary } from "@/types/pokemon";
+import { useMemo, useState } from "react";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import type { PokemonFilters } from "@/types/pokemon";
 
-/** True when the query matches by exact Pokédex number ("25", "#25") or by name (accent-insensitive). */
-function matchesQuery(pokemon: PokemonSummary, normalizedQuery: string): boolean {
-  if (!normalizedQuery) return true;
-  if (/^#?\d+$/.test(normalizedQuery)) {
-    return pokemon.id === Number(normalizedQuery.replace("#", ""));
-  }
-  return normalizeText(pokemon.name).includes(normalizedQuery);
-}
+/** How long typing has to pause before the search is sent. */
+const SEARCH_DELAY_MS = 300;
 
 /**
- * Search and filter state for a list of Pokémon: a text query (name or number),
- * one type (primary or secondary) and one generation. Filtering runs in the browser.
+ * Search and filter state for the Pokémon list: a text query (name or number), one type and
+ * one generation. `filters` is what the list should be loaded with; the query part only
+ * updates once typing pauses, so not every keystroke triggers a request.
  */
-export function usePokemonFilters(pokemon: PokemonSummary[]) {
+export function usePokemonFilters() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<string | null>(null);
   const [generation, setGeneration] = useState<number | null>(null);
 
-  // Typing stays responsive while the list re-filters in the background.
-  const deferredQuery = useDeferredValue(normalizeText(query.trim()));
+  const debouncedQuery = useDebouncedValue(query.trim(), SEARCH_DELAY_MS);
 
-  const results = useMemo(
-    () =>
-      pokemon.filter(
-        (p) =>
-          matchesQuery(p, deferredQuery) &&
-          (type === null || p.types.includes(type)) &&
-          (generation === null || p.generation === generation),
-      ),
-    [pokemon, deferredQuery, type, generation],
+  const filters = useMemo<PokemonFilters>(
+    () => ({
+      search: debouncedQuery || undefined,
+      type: type ?? undefined,
+      generation: generation ?? undefined,
+    }),
+    [debouncedQuery, type, generation],
   );
 
   const isFiltered = query.trim() !== "" || type !== null || generation !== null;
@@ -54,16 +46,5 @@ export function usePokemonFilters(pokemon: PokemonSummary[]) {
     setGeneration(null);
   }
 
-  return {
-    query,
-    setQuery,
-    type,
-    toggleType,
-    generation,
-    toggleGeneration,
-    results,
-    total: pokemon.length,
-    isFiltered,
-    clearFilters,
-  };
+  return { query, setQuery, type, toggleType, generation, toggleGeneration, filters, isFiltered, clearFilters };
 }

@@ -25,6 +25,8 @@ pokemonLB/
 │   ├── hooks/           graphify-update.sh
 │   ├── settings.json    hook config
 │   └── launch.json      browser preview config for the frontend
+├── pom.xml              IDE glue only: aggregates backend/ so IntelliJ (opened at the root) imports it as module "pokemonlb"
+├── .run/                shared IntelliJ run configs: Backend API, Fill database, Fill database (force)
 ├── .graphifyignore      what the knowledge graph skips
 ├── graphify-out/        knowledge graph of backend + frontend code
 ├── backend/             README.md, docs/api/ (endpoint docs), Maven project
@@ -36,7 +38,8 @@ Claude-specific files live at the repo root and in `.claude/`; there are no `CLA
 ## How the two apps connect
 
 - The frontend calls the backend at `http://localhost:8080/api/v1` (override with `POKEMON_API_URL` in `frontend/.env.local`). Endpoints are documented with real examples in `backend/docs/api/`.
-- Calls go from the Next.js **server** to the API (server components → `frontend/src/services/`), never from the browser, so the backend has no CORS setup. Client-side fetching would need CORS added to the backend first.
+- Calls go from the Next.js **server** to the API (server components → `frontend/src/services/`), never from the browser, so the backend has no CORS setup. When the browser needs more data after the first render (e.g. the next page of the infinite scroll), it calls the frontend's own route handler (`frontend/src/app/api/...`), which calls the service on the server.
+- `GET /api/v1/pokemon` is paged (20 per page, `PageDto` response) and does the searching/filtering; the homepage loads the next page as you scroll.
 - Frontend types in `frontend/src/types/` mirror the backend DTOs in `backend/.../model/dto/`. When a DTO or endpoint changes, update the matching frontend type and service, and the page in `backend/docs/api/`.
 - To run both: backend from `backend/` (`.\mvnw.cmd spring-boot:run` in PowerShell, with `JAVA_HOME` set to JDK 25), then `npm run dev` in `frontend/`. The user often has both running already (8080 and 3000); check before starting another instance.
 

@@ -1,6 +1,6 @@
 # pokemonLB
 
-A read-only REST API for Pokémon data: every species (1–1025) with types, base stats, artwork and evolutions, the games they appear in, full learnsets per game (move, method and level), and which moves and items exist in which games.
+A read-only REST API for Pokémon data: every species (1–1025) with types, abilities, base stats, artwork and evolutions, the games they appear in, full learnsets per game (move, method and level), and which moves and items exist in which games.
 
 Built with Spring Boot 4.1, Java 25, PostgreSQL 17, Flyway and Lombok.
 
@@ -67,18 +67,19 @@ Try it: <http://localhost:8080/api/v1/pokemon/25>
 
 All endpoints are `GET` and return JSON. Unknown ids return `404` with a JSON error body; non-numeric ids return `400`.
 
-**Full documentation with real request and response examples** for every endpoint is in [`docs/api/`](docs/api/README.md): [Pokémon](docs/api/pokemon.md) · [Games](docs/api/games.md) · [Moves](docs/api/moves.md) · [Items](docs/api/items.md) · [Types](docs/api/types.md). The tables below are a quick overview.
+**Full documentation with real request and response examples** for every endpoint is in [`docs/api/`](docs/api/README.md): [Pokémon](docs/api/pokemon.md) · [Games](docs/api/games.md) · [Moves](docs/api/moves.md) · [Items](docs/api/items.md) · [Types](docs/api/types.md) · [Abilities](docs/api/abilities.md). The tables below are a quick overview.
 
 ### Pokémon — `/api/v1/pokemon`
 
 | Endpoint | Returns |
 |---|---|
-| `/api/v1/pokemon?generation=&gameId=` | All Pokémon with their types; both filters optional |
+| `/api/v1/pokemon?page=&size=&search=&type=&generation=&gameId=` | One page of Pokémon with their types (20 per page by default); every parameter optional |
 | `/api/v1/pokemon/{id}` | One Pokémon with types, base stats and image URL |
 | `/api/v1/pokemon/{id}/games` | Games whose Pokédex includes it |
 | `/api/v1/pokemon/{id}/moves?gameId=` | Its learnset in a game: move, learn method, level |
 | `/api/v1/pokemon/{id}/moves/{moveId}/levels` | The level it learns a move at, per generation |
 | `/api/v1/pokemon/{id}/evolutions` | Its whole evolution family: who evolves into who, and how (level, item, trade, ...) |
+| `/api/v1/pokemon/{id}/abilities` | Its abilities: regular ones and the hidden one |
 
 ### Games — `/api/v1/games`
 
@@ -112,6 +113,14 @@ All endpoints are `GET` and return JSON. Unknown ids return `404` with a JSON er
 | `/api/v1/types` | All 18 types, with the generation each was introduced |
 | `/api/v1/types/{id}` | One type |
 | `/api/v1/types/{id}/pokemon` | Pokémon with that type as primary or secondary type |
+
+### Abilities — `/api/v1/abilities`
+
+| Endpoint | Returns |
+|---|---|
+| `/api/v1/abilities?generation=` | All 314 abilities, with a short effect; optional generation filter |
+| `/api/v1/abilities/{id}` | One ability |
+| `/api/v1/abilities/{id}/pokemon` | Pokémon that can have the ability, each marked hidden or not |
 
 ### Examples
 
@@ -184,12 +193,13 @@ backend/
         └── db/migration/  Flyway migrations (schema only)
 ```
 
-The schema and the data are kept apart: Flyway migrations create the tables on every start, and `datainject` loads the data only when you run it. To change the schema, add a new migration (`V7__...sql`); never edit one that has already run.
+The schema and the data are kept apart: Flyway migrations create the tables on every start, and `datainject` loads the data only when you run it. To change the schema, add a new migration (`V9__...sql`); never edit one that has already run.
 
 ## Data notes
 
 - **Pokémon** are the 1025 base species, keyed by National Pokédex number. Alternate forms (Mega, regional) are not included.
 - **Evolutions** use each Pokémon's current evolution method. Older methods are not tracked — for example, Feebas → Milotic is listed as a trade holding a Prism Scale, not the older Beauty method. Evolutions into special forms (Alolan Raichu, Vivillon patterns, Alcremie flavours) are left out, since only base species are stored.
+- **Abilities** are each Pokémon's current ones: slots 1 and 2 are regular abilities, slot 3 the hidden ability. Ability names aren't unique: "As One" exists once per Calyrex rider form.
 - **Types** are each Pokémon's current typing. Older typings are not tracked — for example, Clefairy is listed as Fairy although it was Normal before Generation 6.
 - **Games** follow paired releases: *Sword / Shield* is one entry, so version exclusives are not tracked. DLC are separate entries.
 - **Learnsets** are stored per game, because levels differ between games of the same generation. A level of `0` means the move is learned on evolution.
