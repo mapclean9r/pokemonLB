@@ -38,7 +38,7 @@ export function PokemonBrowser({
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Pikachu, Eevee or 25…"
+          placeholder="Pikachu, Eevee or Bulbasaur"
           autoComplete="off"
           spellCheck={false}
           className={SEARCH_INPUT_CLASS}

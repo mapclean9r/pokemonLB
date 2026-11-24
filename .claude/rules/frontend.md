@@ -35,7 +35,7 @@ Only one `next dev` can run per folder. The user usually has their own `npm run 
 
 - `src/app/page.tsx` prerenders the shell (header) and streams the catalog inside `<Suspense>` with `components/catalog-skeleton.tsx` as fallback. `Catalog` calls `await connection()` before fetching, so `next build` never contacts the API (the build works with the backend down). It loads only the **first page** (`getPokemonPage()`) plus the types. If the API is unreachable, it renders a message with the API URL and how to fix it.
 - **Infinite scroll, 20 per page.** `components/pokemon-browser.tsx` combines three hooks:
-  - `use-pokemon-filters.ts` — query/type/generation state; exposes `filters` with the search debounced 300 ms (`use-debounced-value.ts`).
+  - `use-pokemon-filters.ts` — query/type/generation state; exposes `filters` with the search debounced 1 s after the user stops typing (`use-debounced-value.ts`).
   - `use-pokemon-pages.ts` — starts from the server-rendered first page; when `filters` change it reloads page 0 (list dims, count says "Searching…"); `loadMore()` appends the next page from `/api/pokemon`. Aborts superseded requests and drops responses for stale filters; `retry()` after an error.
   - `use-infinite-scroll.ts` — an `IntersectionObserver` on a marker below the grid (600 px early); re-attaches after each page so a tall screen keeps loading until filled.
   Searching and filtering now happen in the backend (`search` matches names accent-insensitively or an exact Pokédex number). `lib/pokemon-query.ts` builds the shared query string and holds `POKEMON_PAGE_SIZE`.

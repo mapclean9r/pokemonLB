@@ -5,7 +5,7 @@ import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import type { PokemonFilters } from "@/types/pokemon";
 
 /** How long typing has to pause before the search is sent. */
-const SEARCH_DELAY_MS = 300;
+const SEARCH_DELAY_MS = 1000;
 
 /**
  * Search and filter state for the Pokémon list: a text query (name or number), one type and
