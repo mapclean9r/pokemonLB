@@ -20,6 +20,7 @@ pokemonLB/
 ├── CLAUDE.md            this file: the whole project
 ├── README.md            project overview for humans
 ├── .claude/
+│   ├── agents/          subagents: backend-developer.md, frontend-developer.md
 │   ├── rules/           backend.md, frontend.md (per folder), graphify.md (knowledge graph)
 │   ├── hooks/           graphify-update.sh
 │   ├── settings.json    hook config
@@ -40,5 +41,9 @@ Claude-specific files live at the repo root and in `.claude/`; there are no `CLA
 - To run both: backend from `backend/` (`.\mvnw.cmd spring-boot:run` in PowerShell, with `JAVA_HOME` set to JDK 25), then `npm run dev` in `frontend/`. The user often has both running already (8080 and 3000); check before starting another instance.
 
 ## Tooling
+
+- Subagent `backend-developer` (`.claude/agents/backend-developer.md`) handles changes inside `backend/` (endpoints, entities, migrations, data SQL, tests, API docs). It doesn't touch `frontend/`; it reports what the frontend needs to change instead.
+- Subagent `frontend-developer` (`.claude/agents/frontend-developer.md`) handles changes inside `frontend/` (pages, components, services, hooks, types, styling), reads the bundled Next.js docs first, and checks its work in the browser at desktop and phone width. It doesn't touch `backend/`; it reports what the API needs instead.
+- A feature that spans both (e.g. a detail page needing a new endpoint): run `backend-developer` first, then pass its report on the API shape to `frontend-developer`.
 
 - A PostToolUse hook (`.claude/settings.json` → `.claude/hooks/graphify-update.sh`) refreshes the knowledge graph in `graphify-out/` after Claude edits a file in `backend/` or `frontend/`. See `.claude/rules/graphify.md` for using the graph.
