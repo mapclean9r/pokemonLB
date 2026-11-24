@@ -1,0 +1,21 @@
+# What the knowledge graph in graphify-out/ skips (gitignore syntax).
+# The graph covers the backend and frontend source code, so the edit hook can keep it
+# current without an LLM. Markdown would need model-based extraction, so it is left out.
+
+*.md
+graphify-out/
+.claude/
+.idea/
+
+# Generated or bulky
+backend/target/
+backend/src/main/java/com/pokemonlb/datainject/sql/
+backend/mvnw
+backend/mvnw.cmd
+backend/.mvn/
+frontend/node_modules/
+frontend/.next/
+frontend/next-env.d.ts
+frontend/package-lock.json
+frontend/public/
+frontend/src/app/favicon.ico

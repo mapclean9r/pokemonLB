@@ -166,7 +166,6 @@ The controller tests mock the services and need no database. `PokemonlbApplicati
 ```
 backend/
 ├── README.md          this file
-├── CLAUDE.md          notes for Claude Code
 ├── docs/api/          endpoint docs with real examples
 ├── docker-compose.yml
 ├── pom.xml
