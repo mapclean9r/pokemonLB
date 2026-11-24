@@ -14,3 +14,8 @@ spring:
         format_sql: true
         # Load lazy collections (e.g. Pokémon types) for up to 100 parents per query instead of one by one.
         default_batch_fetch_size: 100
+
+pokemonlb:
+  # Key clients must send in the X-API-Key header (see config/SecurityConfig). The default is for
+  # local development only: set POKEMON_API_KEY to a long random value anywhere else.
+  api-key: ${POKEMON_API_KEY:pokemonlb-dev-key}

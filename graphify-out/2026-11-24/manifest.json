@@ -6,10 +6,10 @@
     "semantic_hash": "fa8bbcd20a4f50be998ddaf06fb98c6d"
   },
   "backend/pom.xml": {
-    "mtime": 1795086838.7392025,
-    "seen": 1795534330.3480155,
-    "ast_hash": "a0663570b5a6c2308e05d4ab1a217126",
-    "semantic_hash": "a0663570b5a6c2308e05d4ab1a217126"
+    "mtime": 1795537407.0309165,
+    "seen": 1795537409.3566046,
+    "ast_hash": "271869f507bbe287c4297988ff46ff1d",
+    "semantic_hash": ""
   },
   "backend/src/main/java/com/pokemonlb/PokemonlbApplication.java": {
     "mtime": 1795082060.5445998,
@@ -426,10 +426,10 @@
     "semantic_hash": "eb38fba03c8233e7f63f5fafcad30128"
   },
   "frontend/src/app/page.tsx": {
-    "mtime": 1795095692.6083436,
-    "seen": 1795534330.3480155,
-    "ast_hash": "f8f79aa8c73a781a77f627230e79a598",
-    "semantic_hash": "f8f79aa8c73a781a77f627230e79a598"
+    "mtime": 1795536419.0988257,
+    "seen": 1795536422.0528543,
+    "ast_hash": "426efc0af018a4df5223bc93a0a48589",
+    "semantic_hash": ""
   },
   "frontend/src/components/catalog-skeleton.tsx": {
     "mtime": 1795095683.6382518,
@@ -444,9 +444,9 @@
     "semantic_hash": "490081f04cafc63c178e872105a1e449"
   },
   "frontend/src/components/pokemon-browser.tsx": {
-    "mtime": 1795536413.0562441,
-    "seen": 1795536415.748555,
-    "ast_hash": "c263d05ef2d421fcd4a385d7d74b48bd",
+    "mtime": 1795536967.6592655,
+    "seen": 1795537409.3656118,
+    "ast_hash": "fa67d7c3da731ed79fbb8dd3f3b94286",
     "semantic_hash": ""
   },
   "frontend/src/components/pokemon-card.tsx": {
@@ -462,9 +462,9 @@
     "semantic_hash": "f2f585e1f9ee1924a5994a8f8aebe581"
   },
   "frontend/src/hooks/use-pokemon-filters.ts": {
-    "mtime": 1795536382.9178321,
-    "seen": 1795536385.9217489,
-    "ast_hash": "33f40c7ca1575843b467f3c5163d0147",
+    "mtime": 1795537033.3821898,
+    "seen": 1795537409.3656118,
+    "ast_hash": "eecb157296d26f163bfec87a2f2f83f6",
     "semantic_hash": ""
   },
   "frontend/src/lib/format.ts": {
@@ -615,6 +615,12 @@
     "mtime": 1795536382.9748328,
     "seen": 1795536385.9217489,
     "ast_hash": "023caa0ce4ee45a3f3eae7281eadf216",
+    "semantic_hash": ""
+  },
+  "backend/src/main/java/com/pokemonlb/config/SecurityConfig.java": {
+    "mtime": 1795537425.296904,
+    "seen": 1795537428.2099967,
+    "ast_hash": "f40ff8a7bce1e567f9a638a3942cc9e2",
     "semantic_hash": ""
   },
   "frontend/package-lock.json": {

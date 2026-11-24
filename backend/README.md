@@ -61,11 +61,19 @@ Run this file:
 
 The API starts on <http://localhost:8080>. If that port is taken, add `--server.port=8081` as a program argument in the run configuration.
 
-Try it: <http://localhost:8080/api/v1/pokemon/25>
+Try it (every request needs the API key, so a plain browser tab gets `401`):
+
+```bash
+curl -H "X-API-Key: pokemonlb-dev-key" http://localhost:8080/api/v1/pokemon/25
+```
+
+### API key
+
+The API only answers requests that send its key in the `X-API-Key` header. The key is set in [`application.yml`](src/main/resources/application.yml) as `pokemonlb.api-key`, or with the `POKEMON_API_KEY` environment variable. The default `pokemonlb-dev-key` is for local development only; use a long random value anywhere else. The frontend must use the same key (`POKEMON_API_KEY` in `frontend/.env.local`).
 
 ## API
 
-All endpoints are `GET` and return JSON. Unknown ids return `404` with a JSON error body; non-numeric ids return `400`.
+All endpoints are `GET`, return JSON and need the API key. A missing or wrong key returns `401`. Unknown ids return `404` with a JSON error body; non-numeric ids return `400`. Spring Security keeps the API read-only: with a valid key, any other method (`POST`, `DELETE`, …) or a path outside `/api/v1` gets `403` (see [`SecurityConfig.java`](src/main/java/com/pokemonlb/config/SecurityConfig.java) and [`ApiKeyFilter.java`](src/main/java/com/pokemonlb/config/ApiKeyFilter.java)).
 
 **Full documentation with real request and response examples** for every endpoint is in [`docs/api/`](docs/api/README.md): [Pokémon](docs/api/pokemon.md) · [Games](docs/api/games.md) · [Moves](docs/api/moves.md) · [Items](docs/api/items.md) · [Types](docs/api/types.md) · [Abilities](docs/api/abilities.md). The tables below are a quick overview.
 
@@ -180,7 +188,7 @@ backend/
 ├── pom.xml
 └── src/main/
     ├── java/com/pokemonlb/
-    │   ├── config/        ApiUrls — every URL, grouped by controller
+    │   ├── config/        ApiUrls — every URL, grouped by controller; SecurityConfig + ApiKeyFilter — Spring Security and the API key
     │   ├── controller/    REST endpoints
     │   ├── service/       business logic, entity → DTO mapping
     │   ├── repository/    Spring Data JPA repositories

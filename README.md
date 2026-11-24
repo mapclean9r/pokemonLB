@@ -39,13 +39,19 @@ A read-only REST API built with Spring Boot 4.1, Java 25, PostgreSQL 17 and Flyw
   [Items](backend/docs/api/items.md) ·
   [Types](backend/docs/api/types.md)
 
-Quick check once it's running: <http://localhost:8080/api/v1/pokemon/25> returns Pikachu with its types and stats.
+Every request needs the API key in the `X-API-Key` header (local default `pokemonlb-dev-key`; see the backend README). Quick check once it's running:
+
+```bash
+curl -H "X-API-Key: pokemonlb-dev-key" http://localhost:8080/api/v1/pokemon/25
+```
+
+It returns Pikachu with its types and stats.
 
 ## Frontend
 
 A Next.js 16 app with TypeScript, the App Router, Tailwind CSS and ESLint. Code lives in `frontend/src/`; `@/` imports point there (`@/app/page` = `src/app/page.tsx`).
 
-The homepage lists the Pokémon with artwork, number and types, 20 at a time: the next 20 load as you scroll down. You can search by name or Pokédex number and filter by type and generation; the backend does the searching. The data comes from the backend, so start the backend first; if it isn't running, the page says so instead of the list. If the API isn't at `http://localhost:8080/api/v1`, copy `frontend/.env.example` to `frontend/.env.local` and set `POKEMON_API_URL`.
+The homepage lists the Pokémon with artwork, number and types, 20 at a time: the next 20 load as you scroll down. You can search by name or Pokédex number and filter by type and generation; the backend does the searching. The data comes from the backend, so start the backend first; if it isn't running, the page says so instead of the list. If the API isn't at `http://localhost:8080/api/v1`, copy `frontend/.env.example` to `frontend/.env.local` and set `POKEMON_API_URL`. The frontend sends the backend's API key from its server; if you changed the key in the backend, set the same value as `POKEMON_API_KEY` there.
 
 Requires Node.js 20.9 or newer. From the `frontend/` folder:
 

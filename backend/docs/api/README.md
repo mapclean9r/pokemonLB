@@ -15,7 +15,13 @@ One page per controller, with real requests and the responses they return.
 
 Start the API and fill the database first (see the [main README](../../README.md#getting-started)). The examples assume the default address `http://localhost:8080`. If you started it on another port, change it in the URLs.
 
-Every endpoint is a `GET` and returns JSON, so you can also open the URLs in a browser.
+Every endpoint is a `GET` and returns JSON. **Every request needs the API key** in the `X-API-Key` header; the local default is `pokemonlb-dev-key` (see [Security](#security)). The examples leave the header out to stay short, so add it when you try them:
+
+```bash
+curl -H "X-API-Key: pokemonlb-dev-key" http://localhost:8080/api/v1/pokemon/25
+```
+
+A plain browser tab can't send the header, so opening the URLs directly gives `401`. Use `curl`, or a tool like Postman or the IntelliJ HTTP client.
 
 ## Conventions
 
@@ -30,5 +36,17 @@ Every endpoint is a `GET` and returns JSON, so you can also open the URLs in a b
 |---|---|---|
 | 404 | An id doesn't exist | `{"detail": "Pokémon 9999 not found", "instance": "/api/v1/pokemon/9999", "status": 404, "title": "Not Found"}` |
 | 400 | An id or number parameter isn't a number, or a required parameter is missing | `{"timestamp": "…", "status": 400, "error": "Bad Request", "path": "/api/v1/pokemon/abc"}` |
+| 401 | The `X-API-Key` header is missing or wrong (checked before anything else) | empty |
+| 403 | With a valid key: any method other than `GET` (`POST`, `PUT`, `DELETE`, …), or a path outside `/api/v1` | empty |
+
+## Security
+
+The API is read-only and protected by an API key, enforced by Spring Security (`config/SecurityConfig.java` and `config/ApiKeyFilter.java`):
+
+- Every request must send the key in the `X-API-Key` header. The key is case-sensitive. Missing or wrong: `401`.
+- The key is set in `application.yml` (`pokemonlb.api-key`), or with the `POKEMON_API_KEY` environment variable. The default, `pokemonlb-dev-key`, is for local development only: anywhere else, set a long random value.
+- The frontend sends the key from its server (`POKEMON_API_KEY` in `frontend/.env.local`, same default), so browsers never see it.
+- With a valid key only `GET` under `/api/v1` is allowed; everything else gets `403`.
+- There are no sessions or cookies. Responses carry Spring Security's default headers, such as `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` and `Cache-Control: no-cache, no-store, max-age=0, must-revalidate`.
 
 A filter that matches nothing (like `?type=Banana`) is not an error: it returns `[]`.

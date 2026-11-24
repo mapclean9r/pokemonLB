@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.pokemonlb.config.ApiKeyTestConfig;
 import com.pokemonlb.exception.NotFoundException;
 import com.pokemonlb.model.dto.PokemonSummaryDto;
 import com.pokemonlb.model.dto.TypeDto;
@@ -16,11 +17,13 @@ import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TypeController.class)
+@Import(ApiKeyTestConfig.class)
 class TypeControllerTest {
 
     private static final TypeDto FIRE = new TypeDto(10, "Fire", (short) 1);
